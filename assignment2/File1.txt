@@ -1,18 +1,8 @@
 Begin of file
-Line 1.0
-Line 1.1
-Banana
-Line2Banana
-Banana
-Line3Banana
-Banana
-Line 4.0
-Banana
-Line 4.1
-Banana
-Line5Banana
-Banana
-Line6.0
-Banana
-BananaLine6.1
+Line1
+Line2
+Line3
+Line4
+Line5
+Line6
 End of file
