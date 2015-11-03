@@ -1,5 +1,6 @@
 Begin of file
-Line1
+Line 1.0
+Line 1.1
 Banana
 Line2Banana
 Banana
