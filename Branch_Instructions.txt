@@ -8,6 +8,10 @@ git add filename
 git commit -m "notes of changes"
 git push origin branchName
 
+Create pull request
+Go to github website click the green button to create a pull request,
+base master ... compare yourBranchName 
+
 Pull from master to branch
 while in branch:
 git fetch
