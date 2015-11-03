@@ -1,7 +1,8 @@
 Begin of file
 Line 1.0
 Line 1.1
-Line2
+Line2.0
+Line2.1
 Line3
 Line4
 Line5
