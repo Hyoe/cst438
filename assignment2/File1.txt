@@ -7,5 +7,6 @@ Line3
 Line 4.0
 Line 4.1
 Line5
-Line6
+Line6.0
+Line6.1
 End of file
