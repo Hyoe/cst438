@@ -1,5 +1,6 @@
 package com.example.franciscogutierrez.tacotruck2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,12 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
                     //everything is okay, build url string
                     RadioButton rb = (RadioButton) findViewById(R.id.radioRegularUser);
                     String userType = "";
-                    //usertype == 1 is for regular user, usertype == 2 is for truck driver
+                    //usertype == 0 is for regular user, usertype == 1 is for truck driver
                     if (rb.isChecked()) {
-                        userType = "1";
+                        userType = "0";
                     } else {
-                        userType = "2";
+                        userType = "1";
                     }
+                    //String encrypt = Util.encryptPassword("password");
                     String myURL = "http://cst438-1139.appspot.com/test?function=doRegister&username=" + username + "&password=" + password1 + "&firstName=" + firstName + "&lastName=" + lastName + "&type=" + userType;
 
 
@@ -63,17 +65,27 @@ public class RegisterActivity extends AppCompatActivity {
                         String output = new GetData().execute(url).get();
                         JSONObject jObject = new JSONObject(output);
                         String status = jObject.getString("status");
-                        registerStatus.setText(status);
 
+                        //status can be: usernameTaken, successfulRegistration, databaseError
+                        if (status.equals("usernameTaken")) {
+                            registerStatus.setText("That Username is already taken.");
+                        } else if (status.equals("successfulRegistration")) {
+                            registerStatus.setText("Registration Successful");
+                            Intent intent = new Intent();
+                            intent.putExtra("username", username);
+                            intent.putExtra("firstName", firstName);
+                            intent.putExtra("lastName", lastName);
+                            intent.putExtra("userType", userType);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else {
+                            //database error
+                            registerStatus.setText("Database Error, Please try later.");
+                        }
                     } catch (Exception e) {
 
                     }
                 }
-
-
-                //check if username is taken after submit
-
-
             }
         });
     }

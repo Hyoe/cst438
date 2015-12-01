@@ -5,13 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Util {
 
-    public static void main(String[] args) {
-        //empty main
-        return;
-    }
-
-    public String encryptPassword(String passwordToHash) {
-        //String passwordToHash = "SomePassword";
+    public static String encryptPassword(String passwordToHash) {
         String generatedPassword = null;
         try {
             // Create MessageDigest instance for MD5
@@ -30,11 +24,9 @@ public class Util {
             //Get complete hashed password in hex format
             generatedPassword = sb.toString();
         }
-        catch (NoSuchAlgorithmException e)
-        {
+        catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        //System.out.println(generatedPassword);
         return generatedPassword;
     }
 }

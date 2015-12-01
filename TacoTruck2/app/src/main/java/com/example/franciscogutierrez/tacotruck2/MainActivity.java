@@ -14,6 +14,89 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView tv22;
+    String session_username = null;
+    String session_firstName = null;
+    String session_lastName = null;
+    String session_userType = null;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 222) {
+            //returning from register
+            tv22 = (TextView) findViewById(R.id.tv22);
+
+            if (resultCode == RESULT_OK) {
+                String username = data.getStringExtra("username");
+                String firstName = data.getStringExtra("firstName");
+                String lastName = data.getStringExtra("lastName");
+                String userType = data.getStringExtra("userType");
+
+                tv22.setText("register " + username + firstName + lastName + userType);
+                session_username = data.getStringExtra("username");
+                session_firstName = data.getStringExtra("firstName");
+                session_lastName = data.getStringExtra("lastName");
+                session_userType = data.getStringExtra("userType");
+            }
+
+        }
+
+        if (requestCode == 111) {
+            //returning from login
+            tv22 = (TextView) findViewById(R.id.tv22);
+            if (resultCode == RESULT_OK) {
+                String username = data.getStringExtra("username");
+                String firstName = data.getStringExtra("firstName");
+                String lastName = data.getStringExtra("lastName");
+                String userType = data.getStringExtra("userType");
+
+                tv22.setText("register " + username + firstName + lastName + userType);
+
+                session_username = data.getStringExtra("username");
+                session_firstName = data.getStringExtra("firstName");
+                session_lastName = data.getStringExtra("lastName");
+                session_userType = data.getStringExtra("userType");
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        navigationView.getMenu().clear();
+        navigationView.removeHeaderView(navigationView.getHeaderView(0));
+
+        if (session_username == null) {
+            //logged out user
+            navigationView.inflateHeaderView(R.layout.nav_logged_out);
+
+            navigationView.inflateMenu(R.menu.menu_logged_out);
+        } else {
+            //logged in user
+            navigationView.inflateHeaderView(R.layout.nav_logged_in);
+
+            if (session_userType.equals("0")) {
+                //regular user
+                navigationView.inflateMenu(R.menu.menu_logged_in_regular_user);
+            } else {
+                //truck user
+                navigationView.inflateMenu(R.menu.menu_logged_in_truck_operator);
+            }
+
+            TextView tv1 = (TextView) findViewById(R.id.logged_in_fname_lname);
+            TextView tv2 = (TextView) findViewById(R.id.logged_in_username);
+
+            tv1.setText(session_username);
+            tv2.setText("" + session_firstName + " " + session_lastName);
+        }
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_nav, R.string.close_nav);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        //same as app:headerLayout="@layout/nav_truck"
-        navigationView.inflateHeaderView(R.layout.nav_logged_out);
-
-        //same as app:menu="@menu/trucker_menu"
-        navigationView.inflateMenu(R.menu.menu_logged_out);
-        navigationView.setNavigationItemSelectedListener(this);
-
 
     }
 
@@ -53,17 +126,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        TextView tv22 = (TextView) findViewById(R.id.tv22);
-
         if (id == R.id.menu_log_in) {
-            tv22.setText("log in");
             Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
-            MainActivity.this.startActivity(myIntent);
+            MainActivity.this.startActivityForResult(myIntent, 111);
         }else if (id == R.id.menu_register) {
-            tv22.setText("register");
             Intent myIntent = new Intent(MainActivity.this, RegisterActivity.class);
-            MainActivity.this.startActivity(myIntent);
+            MainActivity.this.startActivityForResult(myIntent, 222);
         }else if (id == R.id.nav_LogOut) {
+            //still need to add stuff here.
 
 
         }
