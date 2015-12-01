@@ -108,7 +108,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Truck Driver"
+                    android:text="Truck Operator"
                     android:id="@+id/radioTruckUser" />
             </RadioGroup>
         </LinearLayout>
