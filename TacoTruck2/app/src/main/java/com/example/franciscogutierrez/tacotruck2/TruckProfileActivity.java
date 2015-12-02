@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,6 +22,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 public class TruckProfileActivity extends AppCompatActivity {
 
@@ -53,6 +56,11 @@ public class TruckProfileActivity extends AppCompatActivity {
                         + "&truckName=" + etName.getText().toString()
                         + "&website=" + etWebsite.getText().toString()
                         + "&description=" +etDescription.getText().toString();
+
+                postURL = postURL.replaceAll(" ", "%20");
+                postURL = postURL.replaceAll("\n", "%0A");
+                postURL = postURL.replaceAll("\r", "%0D");
+
                 String[] url = new String[]{postURL};
                 TruckProfileActivity.this.pd = ProgressDialog.show(TruckProfileActivity.this, "Updating Profile...", "Please wait...", true, false);
                 new PostProfile().execute(url);
@@ -98,9 +106,6 @@ public class TruckProfileActivity extends AppCompatActivity {
             if (TruckProfileActivity.this.pd != null) {
                 TruckProfileActivity.this.pd.dismiss();
             }
-
-            TextView statusTv = (TextView) findViewById(R.id.statusTruckProfile);
-            statusTv.setText(string);
 
             EditText etName = (EditText) findViewById(R.id.profile_et_truck_name);
             EditText etWebsite = (EditText) findViewById(R.id.profile_et_website);
@@ -164,6 +169,30 @@ public class TruckProfileActivity extends AppCompatActivity {
             if (TruckProfileActivity.this.pd != null) {
                 TruckProfileActivity.this.pd.dismiss();
             }
+
+            try {
+                JSONObject jObject = new JSONObject(s);
+                String status = jObject.getString("status");
+
+                TextView statusTv = (TextView) findViewById(R.id.statusTruckProfile);
+
+                if (status.equals("successfulUpdate")) {
+
+                    Toast.makeText(TruckProfileActivity.this, "Successful Update", Toast.LENGTH_LONG).show();
+                    statusTv.setText("Success!");
+                    TruckProfileActivity.this.finish();
+
+                } else {
+                    //error
+                    statusTv.setText("Database Error! Try again later.");
+
+                }
+
+            } catch (Exception e) {
+
+            }
+
+
         }
     }
 }
