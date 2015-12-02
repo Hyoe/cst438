@@ -51,7 +51,6 @@ class GetData extends AsyncTask<String, Integer, String> {
                     sb.append(line);
                 }
             }
-            Thread.sleep(2000);
         } catch (Exception e) {
             Log.i(TAG, e.toString());
         }

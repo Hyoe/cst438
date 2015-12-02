@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         userType = "1";
                     }
-                    //String encrypt = Util.encryptPassword("password");
+                    password1 = Util.encryptPassword(password1);
                     String myURL = "http://cst438-1139.appspot.com/test?function=doRegister&username=" + username + "&password=" + password1 + "&firstName=" + firstName + "&lastName=" + lastName + "&type=" + userType;
 
 

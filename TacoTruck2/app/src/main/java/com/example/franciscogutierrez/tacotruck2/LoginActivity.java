@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginStatus.setText("Fields cannot be empty.");
                 } else {
                     //fields are not empty, call database
+                    password = Util.encryptPassword(password);
                     String myURL = "http://cst438-1139.appspot.com/test?function=doLogin&username=" + username + "&password=" + password;
 
                     try {

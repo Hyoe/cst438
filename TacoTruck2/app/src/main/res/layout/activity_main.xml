@@ -29,20 +29,16 @@
 
         </android.support.design.widget.AppBarLayout>
 
-
-
-        <TextView
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World"
-            android:id="@+id/tv22"/>
-
-
+            android:layout_height="match_parent"
+            tools:context="com.example.franciscogutierrez.tacotruck2.MainActivity" />
 
     </LinearLayout>
-
-
-
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -50,9 +46,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-
          />
 
 </android.support.v4.widget.DrawerLayout>
-
-
