@@ -5,15 +5,22 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static java.sql.DriverManager.println;
 
 public class MainActivity extends ListActivity {
 
@@ -40,6 +47,21 @@ public class MainActivity extends ListActivity {
       favoritesList = new ArrayList<HashMap<String, String>>();
 
       ListView lv = getListView();
+
+      //Listview on item click listener
+      lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+         @Override
+         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //getting values from selected ListItem
+            String name = ((TextView) view.findViewById(R.id.name))
+                    .getText().toString();
+
+            //here is where you would start new intent, take us to a page
+            // showing truck's profile info, but for now shows a toast
+            Toast.makeText(getBaseContext(), "Test", Toast.LENGTH_SHORT).show();
+         }
+      });
 
       // Calling async task to get json
       new GetFavorites().execute();
@@ -120,6 +142,16 @@ public class MainActivity extends ListActivity {
          setListAdapter(adapter);
       }
 
+      // Create a message handling object as an anonymous class.
+      /*
+      private ListView.OnItemClickListener mMessageClickedHandler = new ListView.OnItemClickListener() {
+         public void onItemClick(AdapterView parent, View v, int position, long id) {
+            // Do something in response to the click
+         }
+      };
+
+      ListView.setOnItemClickListener(mMessageClickedHandler);
+      */
    }
 
 }
