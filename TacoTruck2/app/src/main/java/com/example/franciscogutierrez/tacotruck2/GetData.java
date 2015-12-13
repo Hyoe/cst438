@@ -1,8 +1,5 @@
 package com.example.franciscogutierrez.tacotruck2;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,9 +14,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * Created by franciscogutierrez on 11/30/15.
- */
 class GetData extends AsyncTask<String, Integer, String> {
 
     private static final String TAG = "MYTAG";
