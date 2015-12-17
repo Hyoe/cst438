@@ -22,6 +22,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+// Add Truck Profile functionality per REQ3
+// Enables truck owners to add and update their truck profiles
+
 public class TruckProfileActivity extends AppCompatActivity {
 
     private ProgressDialog pd = null;
