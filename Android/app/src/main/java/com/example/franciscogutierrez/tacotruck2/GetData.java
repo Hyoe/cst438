@@ -1,4 +1,6 @@
 package com.example.franciscogutierrez.tacotruck2;
+//util used throughout app to pull data from server
+//not associated with any particular requirement
 
 import android.os.AsyncTask;
 import android.util.Log;

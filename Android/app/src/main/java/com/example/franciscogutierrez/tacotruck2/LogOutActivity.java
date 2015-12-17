@@ -1,4 +1,6 @@
 package com.example.franciscogutierrez.tacotruck2;
+//general util activity to log an account app
+//not associated with any particular user requirement
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
