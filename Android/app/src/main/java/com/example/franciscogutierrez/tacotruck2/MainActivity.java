@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return null;
             }
 
+			//show truck markers per REQ16. Facilitate adding to favorites.
             @Override
             public View getInfoContents(Marker marker) {
                 final View v = getLayoutInflater().inflate(R.layout.marker_layout, null);
@@ -288,7 +289,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 }
                                 Toast.makeText(getApplicationContext(), "Removed from favorites.",  Toast.LENGTH_SHORT).show();
-
+							
+							//add truck to favorites per REQ6
                             } else {
 
                                 String myURL = "http://cst438-1139.appspot.com/test?function=editFavorites&username=" + session_username + "&action=add&value=" + marker.getTitle();
