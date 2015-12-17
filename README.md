@@ -1,4 +1,5 @@
-CST 438 Project Android Application - Lunch on Wheels
+CST 438 Project
+Android Application - Lunch on Wheels
 
 To run this mobile application on an Android device download and install the apk located in this repo.
 
