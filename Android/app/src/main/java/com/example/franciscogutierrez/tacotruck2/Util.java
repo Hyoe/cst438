@@ -3,6 +3,8 @@ package com.example.franciscogutierrez.tacotruck2;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+// Encrypts the user password before saving into the database
+
 public class Util {
 
     public static String encryptPassword(String passwordToHash) {
