@@ -3,7 +3,7 @@ package com.example.franciscogutierrez.tacotruck2;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-// Encrypts the user password before saving into the database
+// Encrypts the user password before saving into the database - REQ11
 
 public class Util {
 
