@@ -1,5 +1,5 @@
 package com.example.franciscogutierrez.tacotruck2;
-
+//facilitate user and truck owner reqistration per REQ2 and REQ5
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,12 +50,15 @@ public class RegisterActivity extends AppCompatActivity {
                     RadioButton rb = (RadioButton) findViewById(R.id.radioRegularUser);
                     String userType = "";
                     //usertype == 0 is for regular user, usertype == 1 is for truck driver
+					//REQ5
                     if (rb.isChecked()) {
                         userType = "0";
                     } else {
+						//truck user, REQ2
                         userType = "1";
                     }
-                    password1 = Util.encryptPassword(password1);
+                    //encrypt password per REQ11
+					password1 = Util.encryptPassword(password1);
                     String myURL = "http://cst438-1139.appspot.com/test?function=doRegister&username=" + username + "&password=" + password1 + "&firstName=" + firstName + "&lastName=" + lastName + "&type=" + userType;
 
 
@@ -67,7 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
                         String status = jObject.getString("status");
 
                         //status can be: usernameTaken, successfulRegistration, databaseError
-                        if (status.equals("usernameTaken")) {
+                        //generate error and do not create account when duplicate username registration is attempted per REQ19
+						if (status.equals("usernameTaken")) {
                             registerStatus.setText("That Username is already taken.");
                         } else if (status.equals("successfulRegistration")) {
                             registerStatus.setText("Registration Successful");

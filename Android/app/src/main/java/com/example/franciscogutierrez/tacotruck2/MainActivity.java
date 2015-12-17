@@ -1,4 +1,8 @@
 package com.example.franciscogutierrez.tacotruck2;
+//Enables view of map, trucks on map per REQ1, REQ9
+
+//The file located at cst438/Android/app/build.gradle defines compatbility with
+//Android OS from Jelly Bean (API 16) to Marshmallow (API 23) per REQ14
 
 import android.content.Context;
 import android.content.Intent;
@@ -145,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+		//navigation drawer per REQ18
+		//drawer layout per Google material design rules (REQ12)
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_nav, R.string.close_nav);
         drawer.setDrawerListener(toggle);
@@ -197,23 +203,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+	//auto-center map at user's location per REQ10
+	//view trucks on map per REQ9
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        //check for acces_fine_location permission
+        //check for access_fine_location permission
         if ( ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
             //ask for permission
         } else {
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
+			//if GPS is permitted by user, auto-center to user's location (REQ10)
             if (lastKnownLocation != null) {
                 mMap.setMyLocationEnabled(true);
                 LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 13));
             } else {
+				//if GPS not permitted by user, center user in Sydney, Australia (REQ10)
                 mMap.setMyLocationEnabled(true);
                 LatLng sydney = new LatLng(33.815, -117.923);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
@@ -360,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+		//allow users to view map with trucks per REQ1
         //get truck gps coords, and post them to the map.
         try {
             String myURL = "http://cst438-1139.appspot.com/test?function=getTrucks";
@@ -372,12 +382,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Double latitude;
             Double longitude;
 
+			//includes trucks on map per REQ1
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 truckName = (new JSONObject(jsonArray.getString(i))).getString("truckname");
                 latitude = (new JSONObject(jsonArray.getString(i))).getDouble("latitude");
                 longitude = (new JSONObject(jsonArray.getString(i))).getDouble("longitude");
-
+				
                 mMap.addMarker(new MarkerOptions().title(truckName).snippet(" ").position(new LatLng(latitude, longitude)));
             }
 
@@ -397,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+	//enable truck users to check in at current location per REQ23
     private class postGPS extends AsyncTask<String, Void, Object> {
 
         @Override
