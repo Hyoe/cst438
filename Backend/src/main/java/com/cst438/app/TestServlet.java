@@ -1,4 +1,7 @@
 package com.cst438.app;
+//backend code which processes HTTP requests and communicates with MySQL database
+//and returns output to Android application.
+//not associated with a particular user requirement.
 
 import java.io.IOException;
 import java.util.Properties;
